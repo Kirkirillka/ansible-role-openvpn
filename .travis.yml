@@ -15,6 +15,8 @@ env:
       OS=fedora
     - DOCKER_TAG=debian:10
       OS=debian
+    - DOCKER_TAG=ubuntu:latest
+      OS=ubuntu      
 
 
 before_install:
