@@ -75,3 +75,10 @@ openvpn_logrotate_config: |
   sharedscripts
   copytruncate
   delaycompress
+
+
+# client-side routing
+openvpn_clients_routes_enabled: False
+openvpn_clients_lan: {}
+
+

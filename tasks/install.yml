@@ -20,6 +20,12 @@
     - openvpn
     - openssl
 
+- name: Install ufw for Debian
+  package:
+    name: ufw
+    state: present
+  when: ansible_distribution == "Debian"
+
 - name: Install LDAP plugin
   package:
    name: openvpn-auth-ldap
