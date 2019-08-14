@@ -13,12 +13,6 @@ env:
       OS=centos
     - DOCKER_TAG=fedora:latest
       OS=fedora
-    - DOCKER_TAG=fedora:30
-      OS=fedora
-    - DOCKER_TAG=fedora:29
-      OS=fedora
-    - DOCKER_TAG=fedora:28
-      OS=fedora
     - DOCKER_TAG=debian:10
       OS=debian
 
