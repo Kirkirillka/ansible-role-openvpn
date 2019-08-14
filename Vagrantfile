@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "debian" do |debian|
     
-    debian.vm.box = "debian/jessie64"
+    debian.vm.box = "debian/buster64"
     debian.vm.hostname = "debian.local"
     debian.vm.network "private_network" ,  ip:"192.168.50.10"
     debian.vm.network "private_network" ,  ip:"10.11.13.10", netmask:"255.255.255.0",virtualbox__intnet: "net2" , auto_config: true
