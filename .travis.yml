@@ -19,6 +19,8 @@ env:
       OS=fedora
     - DOCKER_TAG=fedora:28
       OS=fedora
+    - DOCKER_TAG=debian:10
+      OS=debian
 
 
 before_install:
