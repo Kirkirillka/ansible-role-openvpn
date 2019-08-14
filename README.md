@@ -1,6 +1,6 @@
 openvpn
 =========
-[![Build Status](https://travis-ci.org/kyl191/ansible-role-openvpn.svg?branch=feautr/client-side-routing)](https://travis-ci.org/kyl191/ansible-role-openvpn)
+[![Build Status](https://travis-ci.org/Kirkirillka/ansible-role-openvpn.svg?branch=feature%2Fclient-side-routing)](https://travis-ci.org/Kirkirillka/ansible-role-openvpn)
 
 This role installs OpenVPN, configures it as a server, sets up networking (either iptables or firewalld), and can optionally create client certificates. Also can enable client-side routes to access networks behind a VPN client - this is a way to establish Side-to-Side VPN.
 
