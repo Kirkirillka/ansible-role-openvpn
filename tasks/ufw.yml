@@ -1,3 +1,4 @@
+---
 - name: Start ufw service
   service:
     name: ufw

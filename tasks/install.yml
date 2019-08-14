@@ -1,3 +1,4 @@
+---
 - name: Install EPEL
   package:
     name: epel-release
@@ -14,8 +15,8 @@
 
 - name: Install openvpn
   package:
-   name: "{{ item }}"
-   state: present
+    name: "{{ item }}"
+    state: present
   with_items:
     - openvpn
     - openssl
@@ -28,8 +29,8 @@
 
 - name: Install LDAP plugin
   package:
-   name: openvpn-auth-ldap
-   state: present
+    name: openvpn-auth-ldap
+    state: present
   when: openvpn_use_ldap
 
 # RHEL has the group 'nobody', 'Debian/Ubuntu' have 'nogroup'

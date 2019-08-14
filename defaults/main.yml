@@ -76,9 +76,6 @@ openvpn_logrotate_config: |
   copytruncate
   delaycompress
 
-
 # client-side routing
 openvpn_clients_routes_enabled: False
 openvpn_clients_lan: {}
-
-

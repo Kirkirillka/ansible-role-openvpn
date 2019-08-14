@@ -1,11 +1,13 @@
+---
 - name: "Create routing files for client [{{item.key}}]"
   file:
     path: "{{openvpn_base_dir}}/ccd/OpenVPN-Client-{{openvpn_server_hostname}}-{{item.key}}"
     state: touch
     modification_time: preserve
     access_time: preserve
+
 - name: "Push routes for client [{{item.key}}]"
-  lineinfile: 
+  lineinfile:
     path: "{{openvpn_base_dir}}/ccd/OpenVPN-Client-{{openvpn_server_hostname}}-{{item.key}}"
     line: "{{lan}}"
     state: present

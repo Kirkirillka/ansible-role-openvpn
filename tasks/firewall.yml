@@ -1,3 +1,4 @@
+---
 - name: Check for firewalld
   shell: command -v firewall-cmd
   register: firewalld
