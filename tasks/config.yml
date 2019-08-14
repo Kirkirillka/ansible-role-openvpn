@@ -33,7 +33,7 @@
 
 - name: Enable client-side routing
   import_tasks:
-    - "client-side-routing/main.yml"
+    file: client-side-routing/main.yml
   when: openvpn_clients_routes_enabled
 
 - name: Setup openvpn auto-start & start
