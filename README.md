@@ -2,11 +2,15 @@ openvpn
 =========
 [![Build Status](https://travis-ci.org/kyl191/ansible-role-openvpn.svg?branch=master)](https://travis-ci.org/kyl191/ansible-role-openvpn)
 
-This role installs OpenVPN, configures it as a server, sets up networking (either iptables or firewalld), and can optionally create client certificates.
+This role installs OpenVPN, configures it as a server, sets up networking (either iptables or firewalld), and can optionally create client certificates. Also can enable client-side routes to access networks behind a VPN client - this is a way to establish Side-to-Side VPN.
 
 Tested OSes [(TravisCI)](https://travis-ci.org/kyl191/ansible-role-openvpn):
 - Fedora 28+
 - CentOS 7
+
+Manually tested on:
+- CentOS 7
+- Debian 10
 
 
 Requirements
@@ -74,7 +78,6 @@ Role Variables
 | openvpn_service_user               | string  |              | nobody                                         | Set the openvpn service user.                                                                                                                                     |
 | openvpn_service_group              | string  |              | nogroup                                        | Set the openvpn service group.                                                                                                                                    |
 
-
 LDAP object
 
 | Variable            | Type   | Choices      | Default                                 | Comment                                                                                        |
@@ -91,6 +94,13 @@ LDAP object
 | group_base_dn       | string |              | ou=Groups,dc=example,dc=com             | Precise the group to look for. Required if require_group is set to   "True"                    |
 | group_search_filter | string |              | ((cn=developers)(cn=artists))           | Precise valid groups                                                                           |
 
+Client-side routing
+
+| Variable                        | Type   | Choices      | Default                                 | Comment                                                                                        |
+|---------------------------------|--------|--------------|-----------------------------------------|------------------------------------------------------------------------------------------------|
+| openvpn_clients_routes_enabled  |  bool  | True,False   | False                                   | Is to enable routing to networks behind clients                              |
+| openvpn_clients_lan  |  dict  |    | {}                                  | A dictionary containing client names with a list of networks behind them. By modifying this variable, you can control, what networks the VPN server will think behind a concrete client, so the traffic will be routed to that client. Client-side routed connection should allow IP forwarding. |  
+
 Dependencies
 ------------
 
@@ -99,11 +109,35 @@ Does not depend on any other roles
 Example Playbook
 ----------------
 
+Default behavior:
+
+```yaml
     - hosts: vpn
       gather_facts: true
       roles:
         - {role: kyl191.openvpn, clients: [client1, client2],
                             openvpn_port: 4300}
+```
+
+Add client-side routes and assign a `internal_gateway` client two networks behind it. A `test_client` can access three networks (one behind VPN server and two behind corresponding `internal_gateway` client):
+
+```yaml
+- hosts: vpn
+  become: yes
+  roles:
+    - "ansible-role-openvpn"
+  vars:
+    clients: [internal_gateway, test_client]
+    openvpn_clients_routes_enabled: True
+    openvpn_push:
+      - route 10.11.13.0 255.255.255.0
+      - route 10.11.12.0 255.255.255.0
+      - route 10.11.30.0 255.255.255.0
+    openvpn_clients_lan:
+      internal_gateway:
+        - iroute 10.11.12.0 255.255.255.0
+        - iroute 10.11.30.0 255.255.255.0
+```
 
 > **Note:** As the role will need to know the remote used platform (32 or 64 bits), you must set `gather_facts` to `true` in your play.
 
@@ -116,3 +150,4 @@ Author Information
 ------------------
 
 Written by Kyle Lexmond
+Updated by Kirill Kukartsev
