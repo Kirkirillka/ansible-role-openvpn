@@ -75,3 +75,14 @@ openvpn_logrotate_config: |
   sharedscripts
   copytruncate
   delaycompress
+
+
+# client-side routing
+openvpn_clients_routes_enabled: False
+
+openvpn_clients_lan:
+  internal_gateway:
+    - iroute 10.11.12.0 255.255.255.0
+    - iroute 10.11.30.0 255.255.255.0
+
+

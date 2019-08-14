@@ -31,6 +31,11 @@
     mode: 0400
   when: ansible_os_family != 'Solaris'
 
+- name: Enable client-side routing
+  import_tasks:
+    - "client-side-routing/main.yml"
+  when: openvpn_clients_routes_enabled
+
 - name: Setup openvpn auto-start & start
   service:
     name: "{{openvpn_service_name}}"
