@@ -9,12 +9,12 @@ platforms:
   - name: ubuntu
     image: solita/ubuntu-systemd:bionic
     command: /sbin/init
-    privileged: True
+    privileged: true
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
   - name: centos
     image: centos/systemd:latest
-    privileged: True
+    privileged: true
     command: /usr/sbin/init
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
@@ -22,14 +22,15 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
-    enabled: False
+    enabled: false
 scenario:
   name: default
   test_sequence:
+    - syntax
     - create
     - converge
-    - lint    
     - verify
+    - destroy
 
 verifier:
   name: testinfra

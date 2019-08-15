@@ -40,5 +40,5 @@
 - name: Setup openvpn auto-start & start
   service:
     name: "{{ openvpn_service_name }}"
-    enabled: yes
+    enabled: true
     state: started

@@ -2,7 +2,7 @@
 - name: Disable openvpn auto-start & start
   service:
     name: "{{ openvpn_service_name }}"
-    enabled: no
+    enabled: false
     state: stopped
 
 - name: Wipe out config directory

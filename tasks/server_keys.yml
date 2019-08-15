@@ -137,7 +137,7 @@
   file:
     path: "{{openvpn_key_dir}}/index.txt"
     state: touch
-  when: file_result.stat.exists == False
+  when: not file_result.stat.exists
 
 - name: set up certificate revocation list
   command: sh revoke.sh

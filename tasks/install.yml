@@ -39,4 +39,4 @@
   group:
     name: nogroup
     state: present
-    system: yes
+    system: true
