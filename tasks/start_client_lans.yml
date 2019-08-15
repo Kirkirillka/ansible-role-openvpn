@@ -1,14 +1,14 @@
 ---
 - name: Create a folder to store LAN configurations
   file:
-      path: "{{openvpn_base_dir}}/ccd"
+      path: "{{ openvpn_base_dir }}/ccd"
       state: directory
 - name: Force OpenVPN to enable client-side routed traffic
   lineinfile:
-      path: "{{openvpn_base_dir}}/{{ openvpn_config_file }}.conf"
+      path: "{{ openvpn_base_dir }}/{{ openvpn_config_file  }}.conf"
       state: present
-      line: "client-config-dir {{openvpn_base_dir}}/ccd"
+      line: "client-config-dir {{ openvpn_base_dir }}/ccd"
 - name: "Start creating routes"
   include_tasks:
       file: deploy_client_lans.yml
-  with_dict: "{{openvpn_clients_lan }}"
+  with_dict: "{{ openvpn_clients_lan  }}"

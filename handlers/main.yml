@@ -1,7 +1,7 @@
 ---
 - name: restart openvpn
   service:
-    name: "{{openvpn_service_name}}"
+    name: "{{ openvpn_service_name }}"
     state: restarted
 
 - name: restart iptables
@@ -20,6 +20,6 @@
     state: restarted
 
 - name: save iptables rules (Debian/Ubuntu and CentOS/RHEL/Fedora)
-  shell: "{{ iptables_save_command }}"
+  command: "{{ iptables_save_command }}"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   listen: "save iptables"
