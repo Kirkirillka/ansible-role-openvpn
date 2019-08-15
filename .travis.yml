@@ -7,11 +7,13 @@ services:
 
 
 before_install:
-  - sudo apt update
   - sudo apt install python-pip ansible -y
   - sudo apt install python-backports.ssl-match-hostname -y
   - sudo pip install docker  
   - sudo pip install molecule
+addons:
+  apt:
+    update: true  
 
 script:
 - echo ok
