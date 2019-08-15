@@ -1,6 +1,7 @@
 ---
 language: python
 sudo: required
+dist: bionic
 
 services:
   - docker
