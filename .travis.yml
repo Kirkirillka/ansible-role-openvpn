@@ -1,20 +1,28 @@
 ---
 language: python
 sudo: required
-dist: bionic
+
+matrix:
+  include:
+    - python: 3.7
+      dist: bionic
+      sudo: true
 
 services:
   - docker
 
 
 before_install:
-  - sudo apt install python-pip ansible -y
-  - sudo apt install python-backports.ssl-match-hostname -y
-  - sudo pip install docker  
-  - sudo pip install molecule
+  - sudo pip3 install docker  
+  - sudo pip3 install molecule
+
 addons:
   apt:
     update: true  
+    packages:
+    - python-pip
+    - ansible
+    - python-backports.ssl-match-hostname
 
 script:
 - echo ok
