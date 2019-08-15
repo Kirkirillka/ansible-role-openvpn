@@ -14,14 +14,14 @@ services:
 
 before_install:
   - sudo pip3 install docker  
+  - sudo pip3 install ansible
   - sudo pip3 install molecule
 
 addons:
   apt:
     update: true  
     packages:
-    - python-pip
-    - ansible
+    - python-pip3
     - python-backports.ssl-match-hostname
 
 script:
