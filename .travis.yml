@@ -8,8 +8,7 @@ services:
 
 install:
   - sudo apt install python-pip ansible -y
-  - sudo pip uninstall backports.ssl-match-hostname
-  - apt-get install python-backports.ssl-match-hostname -y
+  - sudo apt install python-backports.ssl-match-hostname -y
   - sudo pip install docker  
   - sudo pip install molecule
 
