@@ -1,5 +1,6 @@
 ---
 language: python
+cache: pip3
 sudo: required
 
 matrix:
@@ -27,7 +28,7 @@ install:
 
 
 script:
-- echo ok
+- molecule --version
 
 after_script:
 - echo ok
