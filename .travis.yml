@@ -12,6 +12,10 @@ matrix:
 services:
   - docker
 
+before_install:
+  - docker pull solita/ubuntu-systemd:bionic
+  - docker pull centos/systemd:latest
+
 addons:
   apt:
     update: true  
@@ -29,6 +33,7 @@ install:
 
 script:
 - molecule --version
+- molecule test
 
 after_script:
 - echo ok
