@@ -48,7 +48,7 @@ Role Variables
 | openvpn_server_netmask             | string  |              | 255.255.255.0                                  | Netmask of the private network                                                                                                                                    |
 | tls_auth_required                  | boolean | true , false | true                                           | Ask the client to push the generated ta.key of the server during the   connection                                                                                 |
 | firewalld_default_interface_zone   | string  |              | public                                         | Firewalld zone where the "ansible_default_ipv4.interface" will   be pushed into                                                                                   |
-| openvpn_server_ipv6_network        | boolean | true , false | false                                          | If set, the network address and prefix of an IPv6 network to assign to   clients. If True, IPv4 still used too.                                                   |
+| openvpn_server_ipv6_network        | boolean | true , false | false                                          | If set, the network address and prefix of an IPv6 network to assign to   clients. If true, IPv4 still used too.                                                   |
 | openvpn_ca_key                     | dict    |              |                                                | Contain "crt" and "key". If not set, CA cert and key   will be automatically generated on the target system.                                                      |
 | openvpn_tls_auth_key               | string  |              |                                                | Single item with a pre-generated TLS authentication key.                                                                                                          |
 | openvpn_topology                   | boolean | true , false | false                                          | the "topology" keyword will be set in the server config with   the specified value.                                                                               |
@@ -83,22 +83,22 @@ LDAP object
 | Variable            | Type   | Choices      | Default                                 | Comment                                                                                        |
 |---------------------|--------|--------------|-----------------------------------------|------------------------------------------------------------------------------------------------|
 | url                 | string |              | ldap://host.example.com                 | Address of you LDAP backend with syntax ldap[s]://host[:port]                                  |
-| anonymous_bind      | string | False , True | False                                   | This is not an Ansible boolean but a string that will be pushed into the   configuration file, |
-| bind_dn             | string |              | uid=Manager,ou=People,dc=example,dc=com | Bind DN used if "anonymous_bind" set to "False"                                                |
+| anonymous_bind      | string | true , false | false                                   | This is not an Ansible boolean but a string that will be pushed into the   configuration file, |
+| bind_dn             | string |              | uid=Manager,ou=People,dc=example,dc=com | Bind DN used if "anonymous_bind" set to "false"                                                |
 | bind_password       | string |              | mysecretpassword                        | Password of the bind_dn user                                                                   |
-| tls_enable          | string | yes , no     | no                                      | Force TLS encryption. Not necessary with ldaps addresses                                       |
+| tls_enable          | string | true , false     | false                                      | Force TLS encryption. Not necessary with ldaps addresses                                       |
 | tls_ca_cert_file    | string |              | /etc/openvpn/auth/ca.pem                | Path to the CA ldap backend. This must must has been pushed before                             |
 | base_dn             | string |              | ou=People,dc=example,dc=com             | Base DN where the backend will look for valid user                                             |
 | search_filter       | string |              | (&(uid=%u)(accountStatus=active))       | Filter the ldap search                                                                         |
-| require_group       | string | False , True |                                         | This is not an Ansible boolean but a string that will be pushed into the   configuration file, |
-| group_base_dn       | string |              | ou=Groups,dc=example,dc=com             | Precise the group to look for. Required if require_group is set to   "True"                    |
+| require_group       | string | true , false |                                         | This is not an Ansible boolean but a string that will be pushed into the   configuration file, |
+| group_base_dn       | string |              | ou=Groups,dc=example,dc=com             | Precise the group to look for. Required if require_group is set to   "true"                    |
 | group_search_filter | string |              | ((cn=developers)(cn=artists))           | Precise valid groups                                                                           |
 
 Client-side routing
 
 | Variable                        | Type   | Choices      | Default                                 | Comment                                                                                        |
 |---------------------------------|--------|--------------|-----------------------------------------|------------------------------------------------------------------------------------------------|
-| openvpn_clients_routes_enabled  |  bool  | True,False   | False                                   | Is to enable routing to networks behind clients                              |
+| openvpn_clients_routes_enabled  |  bool  | true, false   | false                                   | Is to enable routing to networks behind clients                              |
 | openvpn_clients_lan  |  dict  |    | {}                                  | A dictionary containing client names with a list of networks behind them. By modifying this variable, you can control, what networks the VPN server will think behind a concrete client, so the traffic will be routed to that client. Client-side routed connection should allow IP forwarding. |  
 
 Dependencies
@@ -123,12 +123,12 @@ Add client-side routes and assign a `internal_gateway` client two networks behin
 
 ```yaml
 - hosts: vpn
-  become: yes
+  become: true
   roles:
     - "ansible-role-openvpn"
   vars:
     clients: [internal_gateway, test_client]
-    openvpn_clients_routes_enabled: True
+    openvpn_clients_routes_enabled: true
     openvpn_push:
       - route 10.11.13.0 255.255.255.0
       - route 10.11.12.0 255.255.255.0

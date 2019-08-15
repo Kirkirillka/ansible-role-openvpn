@@ -18,25 +18,23 @@ before_install:
 
 addons:
   apt:
-    update: true  
+    update: true
     packages:
-    - python3-pip
-    - python-backports.ssl-match-hostname
+      - python3-pip
+      - python-backports.ssl-match-hostname
 
 install:
   - sudo pip3 install setuptools
-  - sudo pip3 install docker  
+  - sudo pip3 install docker
   - sudo pip3 install ansible
   - sudo pip3 install molecule
 
-
-
 script:
-- molecule --version
-- molecule test
+  - molecule --version
+  - molecule test
 
 after_script:
-- echo ok
+  - echo ok
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
