@@ -21,11 +21,12 @@ addons:
       - python-pip
 
 install:
-  - sudo pip install docker molecule
+  - sudo pip install docker molecule pytest
 
 script:
   - molecule --version
-  - ansible --version  
+  - ansible --version
+  - py.test --version
   - molecule test
 
 after_script:
