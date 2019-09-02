@@ -69,6 +69,13 @@ push "dhcp-option DNS 8.8.4.4"
 {% for opt in openvpn_push %}
 push "{{ opt }}"
 {% endfor %}
+
+{% if openvpn_clients_routes_enabled %}
+{% for opt in openvpn_push %}
+{{ opt }}
+{% endfor %}
+{% endif %}
+
 {% endif %}
 keepalive {{ openvpn_keepalive_ping }} {{ openvpn_keepalive_timeout }}
 {% if openvpn_compression %}
